@@ -19,8 +19,8 @@
     },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "pip3 install --user -r .devcontainer/requirements.in && opensafely exec ehrql:v0 dump-example-data",
+    // Use 'onCreateCommand' to run commands after the container is started for the first time.
+    "onCreateCommand": "pip3 install --user -r .devcontainer/requirements.in && opensafely exec ehrql:v0 dump-example-data",
     // Configure tool-specific properties.
     "customizations": {
         "vscode": {
