@@ -1,9 +1,9 @@
 from ehrql import case, codelist_from_csv, create_dataset, days, when
-from ehrql.tables.beta.core import medications, patients
-from ehrql.tables.beta.tpp import (
+from ehrql.tables.core import medications, patients
+from ehrql.tables.tpp import (
     addresses,
+    apcs,
     clinical_events,
-    hospital_admissions,
     practice_registrations,
 )
 
@@ -76,8 +76,8 @@ dataset.num_asthma_inhaler_medications = (
 # outcome variable
 
 dataset.date_first_admitted = (
-    hospital_admissions.where(hospital_admissions.admission_date.is_after(index_date))
-    .sort_by(hospital_admissions.admission_date)
+    apcs.where(apcs.admission_date.is_after(index_date))
+    .sort_by(apcs.admission_date)
     .first_for_patient()
     .admission_date
 )
