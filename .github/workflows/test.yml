@@ -17,12 +17,12 @@ jobs:
         with:
           runCmd: opensafely run run_all
 
-      # - name: Notify Slack on failure
-      #   if: failure() && github.event_name == 'schedule'
-      #   uses: zuplo/github-action-slack-notify-build@cf8e7e66a21d76a8125ea9648979c30920195552 # v2
-      #   env:
-      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      #   with:
-      #     channel_id: <TODO: add a channel id>
-      #     status: "Scheduled dev container test run failure"
-      #     color: danger
+      - name: Notify Slack on failure
+        if: failure() && github.event_name == 'schedule'
+        uses: zuplo/github-action-slack-notify-build@cf8e7e66a21d76a8125ea9648979c30920195552 # v2
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          channel_id: C069YDR4NCA
+          status: "Scheduled dev container test run failure"
+          color: danger
