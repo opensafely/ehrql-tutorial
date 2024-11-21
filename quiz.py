@@ -53,9 +53,9 @@ questions[3].check(...)
 questions[4].check(...)
 
 # Question 5
-# Create a boolean patient series identifying patients who have been diagnosed with diabetes in
-# the past year and who have a record of being referred to a structured education programme
-# within nine months after their diagnosis.
+# Create a boolean patient series identifying patients who have been diagnosed with diabetes for
+# the first time in the past year and who have a record of being referred to a structured education
+# programme within nine months after their diagnosis.
 questions[5].check(...)
 
 # Question 6

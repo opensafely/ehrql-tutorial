@@ -274,9 +274,9 @@ questions[4].expected = (earliest_referral_date - earliest_diagnosis_date).month
 
 questions[5] = Question(
     """
-    Create a boolean patient series identifying patients who have been diagnosed with diabetes in
-    the past year and who have a record of being referred to a structured education programme
-    within nine months after their diagnosis.
+    Create a boolean patient series identifying patients who have been diagnosed with diabetes for
+    the first time in the past year and who have a record of being referred to a structured education
+    programme within nine months after their diagnosis.
     """
 )
 
