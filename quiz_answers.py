@@ -4,7 +4,7 @@
 #                                                                                       #
 #########################################################################################
 #
-# The file you want is called `ehrql_quiz.py`.
+# The file you want is called `quiz.py`.
 #
 # This file defines the ehrQL quiz questions and provides the answers. If you don't want
 # to spoil the quiz, don't look ahead!
