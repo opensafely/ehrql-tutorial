@@ -48,7 +48,7 @@
 #
 #
 
-from ehrql import codelist_from_csv
+from ehrql import codelist_from_csv, debug, months
 from ehrql.quiz import Question, Questions
 from ehrql.tables.core import clinical_events
 
@@ -216,8 +216,8 @@ questions[3] = Question(
 )
 
 questions[3].expected = (
-    earliest_referral_date.is_not_null()
-    & earliest_referral_date.is_on_or_between("2023-04-01", "2024-03-31")
+    earliest_diagnosis_date.is_not_null()
+    & earliest_diagnosis_date.is_on_or_between("2023-04-01", "2024-03-31")
 )
 
 #
@@ -275,16 +275,19 @@ questions[4].expected = (earliest_referral_date - earliest_diagnosis_date).month
 questions[5] = Question(
     """
     Create a boolean patient series identifying patients who have been diagnosed with diabetes for
-    the first time in the past year and who have a record of being referred to a structured education
-    programme within nine months after their diagnosis.
+    the first time in the year between 1st April 2023 and 31st March 2024, and who have a record of
+    being referred to a structured education programme within nine months after their diagnosis.
     """
 )
 
 questions[5].expected = (
-    earliest_referral_date.is_not_null()
-    & earliest_referral_date.is_on_or_between("2023-04-01", "2024-03-31")
+    earliest_diagnosis_date.is_not_null()
+    & earliest_diagnosis_date.is_on_or_between("2023-04-01", "2024-03-31")
     & earliest_referral_date.is_not_null()
-    & ((earliest_referral_date - earliest_diagnosis_date).months <= 9)
+    & earliest_referral_date.is_on_or_between(
+        earliest_diagnosis_date,
+        earliest_diagnosis_date + months(9),
+    )
 )
 
 #
@@ -464,10 +467,12 @@ questions[9].expected = latest_hba1c_measurement
 questions[10] = Question(
     """
     Create a boolean patient series identifying patients without moderate or severe frailty in whom
-    the last IFCC-HbA1c is 58 mmol/mol or less in the preceding twelve months
+    the last IFCC-HbA1c is 58 mmol/mol or less
     """
 )
 
-questions[10].expected = ~has_moderate_or_severe_frailty & (
-    latest_hba1c_measurement <= 58
+questions[10].expected = (
+    has_moderate_or_severe_frailty.is_null()
+    & latest_hba1c_measurement.is_not_null()
+    & (latest_hba1c_measurement <= 58)
 )
