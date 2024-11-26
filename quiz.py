@@ -2,7 +2,7 @@
 
 from quiz_answers import questions
 
-from ehrql import codelist_from_csv, debug
+from ehrql import codelist_from_csv, debug, months
 from ehrql.tables.core import clinical_events
 
 
@@ -54,8 +54,9 @@ questions[4].check(...)
 
 # Question 5
 # Create a boolean patient series identifying patients who have been diagnosed with diabetes for
-# the first time in the past year and who have a record of being referred to a structured education
-# programme within nine months after their diagnosis.
+# the first time in the year between 1st April 2023 and 31st March 2024, and who have a record of
+# being referred to a structured education programme within nine months after their diagnosis.
+
 questions[5].check(...)
 
 # Question 6
@@ -79,7 +80,7 @@ questions[9].check(...)
 
 # Question 10
 # Create a boolean patient series identifying patients without moderate or severe frailty in whom
-# the last IFCC-HbA1c is 58 mmol/mol or less in the preceding twelve months
+# the last IFCC-HbA1c is 58 mmol/mol or less
 questions[10].check(...)
 
 questions.summarise()
