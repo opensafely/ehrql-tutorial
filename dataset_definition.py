@@ -1,4 +1,4 @@
-from ehrql import debug
+from ehrql import show
 from ehrql.tables.core import patients, practice_registrations, clinical_events, medications
 
-debug(patients)
+show(patients)
