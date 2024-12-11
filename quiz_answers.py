@@ -487,8 +487,8 @@ questions[8]._hint = (
         "This is a bit complicated, but essentially we're trying to match one of the following:\n"
         "1. A patient with a moderate or severe frailty code AND no mild frailty code, or\n"
         "2. A patient with a moderate or severe frailty code, AND a mild frailty code, but where "
-        "the most recent frailty code is the moderate/severe one\n"
-        "You'll need the is_null() and is_not_null() methods."
+        "the most recent frailty code is the moderate/severe one.\n"
+        "You'll also need the is_null() and is_not_null() methods."
     )
     + remember_brackets
     + boolean_series_none_to_false
