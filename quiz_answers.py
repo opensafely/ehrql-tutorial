@@ -268,7 +268,7 @@ questions[3].expected = (
 questions[3]._hint = (
     "This builds on question 1. Assign your answer to question 1 to a variable like this:\n\n"
     "earliest_diabetes_diagnosis = ...your answer to q1...\n\n"
-    "You can then use this new variavle in conjunction with one of the date functions e.g. "
+    "You can then use this new variable in conjunction with one of the date functions e.g. "
     ".is_before(xxx), .is_on_or_after(xxx) etc."
 ) + boolean_series_none_to_false
 
