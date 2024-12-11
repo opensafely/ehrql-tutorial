@@ -304,7 +304,7 @@ questions[4].expected = (earliest_referral_date - earliest_diagnosis_date).month
 questions[4]._hint = (
     "It might be helpful to assign the answers to q1 and q2 into two variables called "
     "earliest_diabetes_diagnosis and earliest_referral. You can then find the difference "
-    "between these two dates. Subtracting dates leads to a 'DateDifference', so you will also "
+    "between these two dates. Subtracting dates returns a 'DateDifference', so you will also "
     "need to specify how you want that represented e.g. in this case '.months'"
 )
 
