@@ -48,7 +48,7 @@
 #
 #
 
-from ehrql import codelist_from_csv, debug, months
+from ehrql import codelist_from_csv, show, months
 from ehrql.quiz import Question, Questions
 from ehrql.tables.core import clinical_events
 
@@ -88,7 +88,34 @@ questions.set_dummy_tables_path("dummy_tables")
 #
 #
 #
-#
+# Common help messages
+
+remember_brackets = (
+    "\n\nRemember your brackets. Things like this:\n\n"
+    "  has_diabetes & latest_hba1c < 50\n\n"
+    "won't work because the '&' gets evaluated first, so it's as if you'd written:\n\n"
+    "  (has_diabetes & latest_hba1c) < 50\n\n"
+    "which doesn't make sense and will lead to an error. Instead you need to add brackets "
+    "to make the order of the operations explicit:\n\n"
+    "  has_diabetes & (latest_hba1c < 50)"
+)
+
+
+remember_to_sort = (
+    "\n\nThe functions first_for_patient() and last_for_patient() can't be used directly "
+    "on a table (such as clinical_events) unless you have first called "
+    'sort_by(clinical_events.date) so we know what "first" and "last" correspond to. '
+    "You could, for example, sort by numeric_value instead, and then first/"
+    "last_for_patient would return the lowest/highest value instead of the first/last date."
+)
+
+boolean_series_none_to_false = (
+    '\n\nIf you get errors like "expected False, got None instead", then what is happening '
+    "is that there are patients who don't have the particular thing of interest and so one "
+    "of your queries is returning empty (None) values. You will come across this frequently "
+    "and we want to show you how to convert them into False values. You will need to use "
+    "the is_null() and/or is_not_null() methods."
+)
 #
 #
 #
@@ -110,6 +137,11 @@ questions[0] = Question(
 )
 questions[0].expected = clinical_events.where(
     clinical_events.snomedct_code.is_in(diabetes_codes)
+)
+questions[0]._hint = (
+    "Question 0 already has an answer in the quiz.py file. If you want the hint for another "
+    "question, make sure to change the '0' in quesions[0].hint(), so you get the hint for the "
+    "right question."
 )
 
 #
@@ -147,6 +179,15 @@ earliest_diagnosis_date = (
     .date
 )
 questions[1].expected = earliest_diagnosis_date
+questions[1]._hint = (
+    "You need to filter clinical_events to just those containing a "
+    "diabetes_code, sort the events by date and use first_for_patient "
+    "to get the first for each patient.\n\n"
+    "Functions like 'where' and 'first_for_patient' return events. An event contains "
+    "several properties such as the snomedct code, the date, and optionally a numeric "
+    "value. For this question, we only want the date, not the whole event, so you'll "
+    "need to append .date to your code."
+) + remember_to_sort
 
 #
 #
@@ -184,6 +225,11 @@ earliest_referral_date = (
 ).date
 
 questions[2].expected = earliest_referral_date
+questions[2]._hint = (
+    "If you've solved question 1 then this is very similar but using the "
+    "referral codelist instead of the diabetes codelist. Look back to the "
+    "top of the quiz.py file and see which codelists we have provided."
+) + remember_to_sort
 
 #
 #
@@ -219,6 +265,12 @@ questions[3].expected = (
     earliest_diagnosis_date.is_not_null()
     & earliest_diagnosis_date.is_on_or_between("2023-04-01", "2024-03-31")
 )
+questions[3]._hint = (
+    "This builds on question 1. Assign your answer to question 1 to a variable like this:\n\n"
+    "earliest_diabetes_diagnosis = ...your answer to q1...\n\n"
+    "You can then use this new variable in conjunction with one of the date functions e.g. "
+    ".is_before(xxx), .is_on_or_after(xxx) etc."
+) + boolean_series_none_to_false
 
 #
 #
@@ -249,6 +301,12 @@ questions[4] = Question(
     """
 )
 questions[4].expected = (earliest_referral_date - earliest_diagnosis_date).months
+questions[4]._hint = (
+    "It might be helpful to assign the answers to q1 and q2 into two variables called "
+    "earliest_diabetes_diagnosis and earliest_referral. You can then find the difference "
+    "between these two dates. Subtracting dates returns a 'DateDifference', so you will also "
+    "need to specify how you want that represented e.g. in this case '.months'"
+)
 
 #
 #
@@ -289,6 +347,11 @@ questions[5].expected = (
         earliest_diagnosis_date + months(9),
     )
 )
+questions[5]._hint = (
+    "This builds on q3 and q4. You want everyone from q3 who also has their answer to q4 < 9. Note "
+    "that data is messy and so there may be people whose referral was before their diagnosis. These "
+    "people would have a negative number of months between diagnosis and referral."
+) + remember_brackets
 
 #
 #
@@ -325,6 +388,10 @@ latest_mild_frailty_date = (
     .date
 )
 questions[6].expected = latest_mild_frailty_date
+questions[6]._hint = (
+    "This is the same idea as questions 1 and 2. The only difference is that you want the latest "
+    "for each patient rather than the earliest."
+) + remember_to_sort
 
 #
 #
@@ -365,6 +432,17 @@ latest_moderate_or_severe_frailty_date = (
     .date
 )
 questions[7].expected = latest_moderate_or_severe_frailty_date
+questions[7]._hint = (
+    (
+        "You'll need to either:\n\n"
+        " - combine the moderate and severe frailty codelists, which can be done like this: "
+        "moderate_frailty_codes + severe_frailty_codes\n"
+        " - or make use of the 'or' operator '|' to find snomedct_codes in "
+        "moderate_frailty_codes OR in severe_frailty_codes."
+    )
+    + remember_brackets
+    + remember_to_sort
+)
 
 #
 #
@@ -404,6 +482,17 @@ has_moderate_or_severe_frailty = (
     )
 )
 questions[8].expected = has_moderate_or_severe_frailty
+questions[8]._hint = (
+    (
+        "This is a bit complicated, but essentially we're trying to match one of the following:\n"
+        "1. A patient with a moderate or severe frailty code AND no mild frailty code, or\n"
+        "2. A patient with a moderate or severe frailty code, AND a mild frailty code, but where "
+        "the most recent frailty code is the moderate/severe one.\n"
+        "You'll also need the is_null() and is_not_null() methods."
+    )
+    + remember_brackets
+    + boolean_series_none_to_false
+)
 
 #
 #
@@ -441,6 +530,12 @@ latest_hba1c_measurement = (
 )
 
 questions[9].expected = latest_hba1c_measurement
+questions[9]._hint = (
+    "Remember to:\n\n"
+    "- use the hba1c_codes codelist\n"
+    "- use the last_for_patient() method - but only after sorting the events\n"
+    "- use the `numeric_value` property to get the actual value"
+) + remember_to_sort
 
 #
 #
@@ -476,3 +571,10 @@ questions[10].expected = (
     & latest_hba1c_measurement.is_not_null()
     & (latest_hba1c_measurement <= 58)
 )
+questions[10]._hint = (
+    "This makes use of the answers to 8 and 9. It makes things tidier if you:\n"
+    "- assign the answer to q8 to a variable called most_recent_frailty_is_moderate_or_severe\n"
+    "- assign the answer to q9 to a variable called latest_hba1c_value\n"
+    "You then need ehrql to represent people who DON'T have moderate/severe frailty AND whose "
+    "most recent hba1c was <= 58."
+) + remember_brackets
