@@ -1,8 +1,4 @@
 {
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true,
-  "data.preview.create.json.schema": false,
   "files.associations": {
     "*.feather": "arrow"
   },
@@ -10,5 +6,8 @@
   "files.autoSaveDelay": 1000,
   "window.autoDetectColorScheme": true,
   "extensions.ignoreRecommendations": true,
-  "data.preview.theme": "light"
+  "workbench.colorTheme":"Visual Studio Light",
+  "editor.minimap.enabled": false,
+  "editor.wordWrap": "on",
+  "terminal.integrated.hideOnStartup": "always"
 }
