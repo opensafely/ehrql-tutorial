@@ -26,6 +26,20 @@
                 "ms-toolsai.jupyter-renderers",
                 "bennettoxford.opensafely"
             ]
+        },
+        "settings": {
+            "files.associations": {
+                "*.feather": "arrow"
+            },
+            "files.autoSave": "afterDelay",
+            "files.autoSaveDelay": 1000,
+            "window.autoDetectColorScheme": true,
+            "extensions.ignoreRecommendations": true,
+            "workbench.colorTheme":"Visual Studio Light",
+            "editor.minimap.enabled": false,
+            "editor.wordWrap": "on",
+            "terminal.integrated.hideOnStartup": "always",
+            "terminal.integrated.enableFileLinks": "on"
         }
     },
     // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
