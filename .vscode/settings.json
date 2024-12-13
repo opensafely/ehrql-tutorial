@@ -9,5 +9,6 @@
   "workbench.colorTheme":"Visual Studio Light",
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
-  "terminal.integrated.hideOnStartup": "always"
+  "terminal.integrated.hideOnStartup": "always",
+  "terminal.integrated.enableFileLinks": "on"
 }
