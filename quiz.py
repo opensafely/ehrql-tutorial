@@ -95,6 +95,6 @@ questions[9].check(...)
 # Create a boolean patient series identifying patients without moderate or severe frailty in whom
 # the last IFCC-HbA1c is 58 mmol/mol or less
 questions[10].check(...)
-# questions[10.hint()
+# questions[10].hint()
 
 questions.summarise()
