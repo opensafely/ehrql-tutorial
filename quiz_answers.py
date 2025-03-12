@@ -92,12 +92,12 @@ questions.set_dummy_tables_path("dummy_tables")
 
 remember_brackets = (
     "\n\nRemember your brackets. Things like this:\n\n"
-    "  has_diabetes & latest_hba1c < 50\n\n"
+    "  has_diagnosis & latest_value < 58\n\n"
     "won't work because the '&' gets evaluated first, so it's as if you'd written:\n\n"
-    "  (has_diabetes & latest_hba1c) < 50\n\n"
+    "  (has_diagnosis & latest_value) < 58\n\n"
     "which doesn't make sense and will lead to an error. Instead you need to add brackets "
     "to make the order of the operations explicit:\n\n"
-    "  has_diabetes & (latest_hba1c < 50)"
+    "  has_diagnosis & (latest_value < 58)"
 )
 
 
