@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/python:3.13-bullseye
+FROM mcr.microsoft.com/devcontainers/python:3.13-trixie
 
 # Suppress the codespace's default first run message
 # See https://github.com/devcontainers/features/blob/main/src/common-utils/scripts/rc_snippet.sh
