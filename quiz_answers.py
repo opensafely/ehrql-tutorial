@@ -567,7 +567,7 @@ questions[10] = Question(
 )
 
 questions[10].expected = (
-    has_moderate_or_severe_frailty.is_null()
+    ~has_moderate_or_severe_frailty
     & latest_hba1c_measurement.is_not_null()
     & (latest_hba1c_measurement <= 58)
 )
